@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
   has_many :assigned_tasks
-  has_many :subject_tasks
+  belongs_to :subject
   validates :task_description,presence: true
 end

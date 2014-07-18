@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     match '/signout', to: 'sessions#destroy', via: 'delete'
     resources :sessions, only: [:new, :create, :destroy]
     resources :trainees
+    resources :courses
+    resources :subjects 
+    resources :courses do 
+      resources :course_subjetcs, only: [:show , :edit ,:update]     
+    end
   end
 
 

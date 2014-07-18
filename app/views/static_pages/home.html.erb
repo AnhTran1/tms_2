@@ -1,3 +1,46 @@
+<% if signed_in? %>
+  <div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for current_trainee %>
+        <%= current_trainee.name %>
+      </h1>
+    </section>
+  </aside>
+  <aside class="span8">
+    <section>
+      <h1>
+        Courses Enroll 
+      </h1>
+        <% @enrolls.each do |enroll| %>
+          <% course = enroll.course %>
+          <p><b><i><%= link_to course.course_name,course_path(course.id) %> </i></b></p>
+          <% @trainee_subjects.each do |trainee_subject| %>
+            <p><b><%= link_to trainee_subject.subject.subject_name,subject_path(trainee_subject.subject.id) %> -- 
+            <% if trainee_subject.status == "F" %>
+            Finished
+            <% else %>
+            New
+            <% end %>
+            </b></p>
+            <% @assigned_tasks.each do |assigned_task| %>
+            <% if assigned_task.task.subject_id == trainee_subject.subject_id %>
+              <p><%= assigned_task.task.task_description %>
+              -- 
+              <% if assigned_task.status == "F" %>
+              Finished
+              <% else %>
+              End
+              <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+    </section>
+  </aside>
+</div>
+<% else %>
 <div class="center hero-unit">
   <h1>Welcome to Trainning System</h1>
 
@@ -7,3 +50,4 @@
 
   <%= link_to "Sign up now!", '#', class: "btn btn-large btn-primary" %>
 </div>
+<% end %>

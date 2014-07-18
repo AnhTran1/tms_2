@@ -7,6 +7,8 @@
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
+            <% if be_trainee? current_trainee %>
+            <li><%= link_to "Courses", courses_path %></li>
             <li><%= link_to "Trainees", trainees_path %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -21,6 +23,23 @@
                 </li>
               </ul>
             </li>
+            <%else %>
+            <li><%= link_to "Courses", supervisors_courses_path %></li>    
+            <li><%= link_to "Users", supervisors_trainees_path %></li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", supervisors_trainee_path(current_trainee) %></li>
+                <li><%= link_to "Settings", edit_supervisors_trainee_path(current_trainee) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Sign out", signout_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
+            <% end %>
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>

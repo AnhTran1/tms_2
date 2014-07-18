@@ -33,7 +33,7 @@ course_subject_list.each do |course_id,subject_id|
 end
 subject_list=[["Ruby on Rails","The Ruby on Rails Tutorial book and screencast series teach 
   you how to develop and deploy real, industrial-strength web applications with Ruby on Rails, 
-  the open-source web framework that powers top websites such as Twitter, Hulu, GitHub, and the Yellow Pages. The Ruby on Rails Tutorial book is available for free online and is available for purchase as an ebook (PDF, EPUB, and MOBI formats). The companion screencast series includes 15 individual lessons (including a new Rails 4.0 supplement) totaling more than 15 hours, with one lesson for each chapter of the Ruby on Rails Tutorial book. The best value is the ebook/screencast bundle, which includes the 2nd edition book, the Rails 
+  the open-source web framework that powers top websites such as Twitter, Hulu, GitHub, and the Yellow Pages. The Ruby on Rails Tutorial book is available for free online and is available for purchase as an ebook (PDF, EPUB, and MOBI formats). The companion screencast series includes 15 individual lessons (including a N Rails 4.0 supplement) totaling more than 15 hours, with one lesson for each chapter of the Ruby on Rails Tutorial book. The best value is the ebook/screencast bundle, which includes the 2nd edition book, the Rails 
   4.0–compatible version, the 2nd edition screencast series, and the Rails 4.0 supplementary screencasts. "],
 ["GitHub","The entire Pro Git book, written by Scott Chacon and published by Apress, 
   is available here. All content is licensed under the Creative Commons Attribution Non 
@@ -45,30 +45,26 @@ subject_list.each do |subject_name, description|
   Subject.create( subject_name: subject_name, description: description )
 end
 task_list1=[
-  ["Skill test 1 : Multiple choice",1],
-  ["Skill test 2 : Exercise",2],
+  ["Skill test 1 : Multiple choice",3],
+  ["Skill test 2 : Exercise",3],
   ["Read Progit : Chapter 1",3],
-  ["Lecture 1 : Database design",4],
-  ["Lecture 2 :Basic SQL",5],
-  ["Lecture 3:Question and Answer",6],
-  ["Lecture 4: Final Test",7]
+  ["Lecture 1 : Database design",3],
+  ["Lecture 2 :Basic SQL",3],
+  ["Lecture 3:Question and Answer",3],
+  ["Lecture 4: Final Test",3]
 ]
-task_list1.each do |task_description,id|
-  Task.create(task_description: task_description)
+task_list1.each do |task_description,subject_id|
+  Task.create(task_description: task_description,subject_id: subject_id)
 end
-subject_task1=[[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7]]
-subject_task1.each do |subject_id,task_id|
-  SubjectTask.create(subject_id: subject_id,task_id: task_id)
-end
-enroll_list = [[1,1,"New"],[3,1,"New"]]
+enroll_list = [[1,1,"N"],[3,1,"N"]]
 enroll_list.each do |trainee_id,course_id,status|
   Enroll.create(trainee_id: trainee_id,course_id: course_id,status: status)  
 end
-trainee_subject_list = [[1,1,"New"],[1,2,"New"],[1,3,"New"],[1,4,"New"],[3,1,"New"],[3,2,"New"],[3,3,"New"],[3,4,"New"]]
-trainee_subject_list.each do |trainee_id,subject_id,status|
-  TraineeSubject.create(trainee_id:trainee_id,subject_id:subject_id,status:status)
+trainee_subject_list = [[1,1,"N",1],[1,2,"N",1],[1,3,"N",1],[1,4,"N",1],[3,1,"N",1],[3,2,"N",1],[3,3,"N",1],[3,4,"N",1]]
+trainee_subject_list.each do |trainee_id,subject_id,status,enroll_id|
+  TraineeSubject.create(trainee_id:trainee_id,subject_id:subject_id,status:status,enroll_id: enroll_id)
 end
-trainee_task_list = [[1,1,"Finished"],[1,2,"New"],[1,3,"New"],[1,4,"New"],[1,5,"New"],[1,6,"New"],[1,7,"New"],[3,1,"Finished"],[3,2,"Finished"],[3,3,"Finished"],[3,4,"New"],[3,5,"New"],[3,6,"New"],[3,7,"New"]]
-trainee_task_list.each do |trainee_id,task_id,status|
-  AssignedTask.create(trainee_id:trainee_id,task_id:task_id,status:status)
+trainee_task_list = [[1,1,"F",3],[1,2,"N",3],[1,3,"N",3],[1,4,"N",3],[1,5,"N",3],[1,6,"N",3],[1,7,"N",3],[3,1,"F",3],[3,2,"F",3],[3,3,"F",3],[3,4,"N",3],[3,5,"N",3],[3,6,"N",3],[3,7,"N",3]]
+trainee_task_list.each do |trainee_id,task_id,status,trainee_subject_id|
+  AssignedTask.create(trainee_id:trainee_id,task_id:task_id,status:status,trainee_subject_id: trainee_subject_id)
 end

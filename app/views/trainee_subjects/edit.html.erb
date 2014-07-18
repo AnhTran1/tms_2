@@ -1,0 +1,53 @@
+<% course = @enroll.course %>
+<% provide(:title, course.name) %>
+<h1><%= course.name %></h1>
+<h2><%= course.description %></h2>
+
+<div class="center">
+  <div class="span6 offset3 btn-group">
+    <% course.subjects.each do |subject| %>
+      <% trainee_subject = @enroll.trainee_subjects.find_by subject_id: subject.id %>
+      <% if subject == @trainee_subject.subject %>
+        <% type_button = "btn btn-large btn-primary" %>
+      <% elsif trainee_subject.finish? %>
+        <% type_button = "btn btn-large btn-success active" %>
+      <% elsif trainee_subject.started? %>
+        <% type_button = "btn btn-large btn-info" %>
+      <% else %>
+        <% type_button = "btn btn-large btn-default" %> 
+      <% end %>
+      <%= link_to subject.name, edit_trainee_enroll_trainee_subject_url(current_trainee,
+        @enroll, trainee_subject), class: type_button%>
+    <% end %>
+    <br/>
+    <div>        
+      <%= form_for(@trainee_subject, url: trainee_enroll_trainee_subject_url,
+        method: :patch) do |f| %> 
+        <% if @trainee_subject.started? %>
+          <%= f.fields_for :trainee_tasks do |builder| %>
+            <% task = builder.object.task %>
+            <h4><div>
+              <% user_task = builder.object %>
+              <% if trainee_task.finish %>
+                <%= builder.check_box :finish, {checked: true}, 1, '' %>
+              <% else %>
+                <%= builder.check_box :finish, {checked: false}, 1, '' %>
+              <% end %>
+              <%= task.name %>
+            </div></h4>
+          <% end %>
+          <%= f.submit "Save", class: "btn btn-large btn-primary" %>
+        <% else %>
+          <% @trainee_subject.subject.tasks.each do |task| %>
+            <h4><input type="checkbox" disabled="disabled">  <%= task.name %></h4>
+          <% end %>
+          <% if @trainee_subject.course_subject.started? %>
+            <%= f.submit "Start", class: "btn btn-large btn-primary" %>
+          <% else %>
+            <h4>This subject not started!</h4>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

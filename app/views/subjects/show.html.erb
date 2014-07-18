@@ -3,13 +3,7 @@
   <section>
     <h1>
       <p><%= @subject.subject_name %></p>
-      </h1>
-      <% @subject_tasks.each do |subject_task| %>
-      <p><% task = subject_task.task%></p>
-      <form action="">
-		<input type="checkbox" ><%= task.task_description%><br>
-	  </form>
-        <% end %>   
+      </h1>  
       <p><b> Basic Information </p></b>
       <p><%= @subject.description %></p>
    </section>

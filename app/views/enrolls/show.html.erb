@@ -1,0 +1,55 @@
+<% course = @enroll.course %>
+<% provide(:title, course.name) %>
+<h1><%= course.name %></h1>
+<h2><%= course.description %></h2>
+
+<div class="center">
+  <div class="span6 offset3 btn-group">
+    <% course.subjects.each do |subject| %>
+      <% trainee_subject = @enroll.user_subjects.find_by subject_id: subject.id %>
+      <% if @enroll.started? %>
+        <% if trainee_subject.finish? %>
+          <% type_button = "btn btn-large btn-success active" %>
+        <% elsif trainee_subject.started? %>
+          <% type_button = "btn btn-large btn-info" %>
+        <% else %>
+          <% type_button = "btn btn-large btn-default" %> 
+        <% end %>
+        <%= link_to subject.name, edit_trainee_enroll_trainee_subject_url(current_trainee,
+        @enroll, trainee_subject), class: type_button%>
+      <% else %>
+        <% type_button = "btn btn-large btn-default" %>
+        <%= link_to subject.name, course_course_subject_url(course,
+          subject), class: type_button%>
+      <% end %>
+    <% end %>
+    <div>
+      <% if course.started? %>
+        <% if @enroll.finish? %>
+          <h4> You finished this course!</h4>
+        <% elsif @enroll.started? %>
+          <h4>You started</h4>
+        <% else %>
+          <%= form_for @enroll url: trainee_enroll_url(current_trainee,
+            @enroll) do |f| %>
+            <h4><%= f.submit "Start Course", class: "btn btn-large btn-primary" %></h4>
+          <% end %>
+        <% end %>
+      <% else %>
+        <h4>This course not started!</h4>
+      <% end %>
+    </div>
+  </div>  
+
+  <div class="row">
+    <div class="span6 offset3">
+      <h4>Trainee in this Course</h4>
+      <div>
+        <% course.enroll.each do |enroll| %>
+          <% trainee = enroll.trainee %>
+          <%= link_to gravatar_for(trainee, size: 40), trainee %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

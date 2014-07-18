@@ -1,0 +1,38 @@
+<% provide(:title, 'All users') %>
+<h1>All Users</h1>
+
+
+<ul class="trainees">
+  <div class = "row">
+    <aside class="span6">
+      <section>
+	    <h3>Trainees</h3>
+        <% @supervisors.each do |trainee| %>
+          <% if trainee.supervisor == 0 %>
+            <li>
+            <%= gravatar_for trainee, size: 52 %>
+            <%= link_to trainee.name, supervisors_trainee_path(trainee.id) %>
+            | <%= link_to "edit", edit_supervisors_trainee_path(trainee)%>
+            | <%= link_to "delete", supervisors_trainee_path(trainee), method: :delete, data: { confirm: "You sure?" } %>
+            </li>
+          <% end %>
+        <% end %>
+        <br></br>
+        <p><%= link_to "Create new trainee", new_supervisors_trainee_path %> </p>
+      </section>
+    </aside>
+	<aside class="span6">
+      <section>
+        <h3>Supervisors</h3>
+        <% @supervisors.each do |trainee| %>
+          <% if trainee.supervisor == 1 %>
+            <li>
+            <%= gravatar_for trainee, size: 52 %>
+            <%= link_to trainee.name, supervisors_trainee_path(trainee.id) %>
+            </li>
+          <% end %>
+        <% end %>
+      </section>
+    </aside>
+  </div>
+</ul>

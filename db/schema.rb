@@ -11,9 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721033552) do
+
+ActiveRecord::Schema.define(version: 20140725043622) do
+
 
   create_table "assigned_tasks", force: true do |t|
+    t.integer  "trainee_subject_id"
     t.integer  "trainee_id"
     t.integer  "task_id"
     t.string   "status"
@@ -46,15 +49,8 @@ ActiveRecord::Schema.define(version: 20140721033552) do
   end
 
   create_table "managing_courses", force: true do |t|
-    t.integer  "supervisor_id"
+    t.integer  "trainee_id"
     t.integer  "course_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "subject_tasks", force: true do |t|
-    t.integer  "subject_id"
-    t.integer  "task_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -66,24 +62,15 @@ ActiveRecord::Schema.define(version: 20140721033552) do
     t.datetime "updated_at"
   end
 
-  create_table "supervisors", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "password_digest"
-    t.string   "remember_token"
-  end
-
-  add_index "supervisors", ["remember_token"], name: "index_supervisors_on_remember_token"
-
   create_table "tasks", force: true do |t|
     t.text     "task_description"
+    t.integer  "subject_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "trainee_subjects", force: true do |t|
+    t.integer  "enroll_id"
     t.integer  "trainee_id"
     t.integer  "subject_id"
     t.string   "status"
@@ -97,9 +84,9 @@ ActiveRecord::Schema.define(version: 20140721033552) do
   create_table "trainees", force: true do |t|
     t.string   "name"
     t.string   "email"
+    t.integer  "supervisor",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "supervisor",      default: 0
     t.string   "password_digest"
     t.string   "remember_token"
   end

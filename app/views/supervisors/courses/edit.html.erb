@@ -1,0 +1,18 @@
+<% provide(:title, "Edit Course") %>
+<h1>Update course</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for [:supervisors ,@course ] do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :course_name %>
+      <%= f.text_field :course_name %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description ,:size => "10x6" %>
+
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

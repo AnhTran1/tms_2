@@ -1,11 +1,33 @@
 <% provide(:title, @trainee.name) %>
 <div class="row">
+  <%if be_trainee? @trainee %>
   <aside class="span4">
     <section>
       <h1>
         <%= gravatar_for @trainee %>
         <%= @trainee.name %>
-      </h1>
+       </h1>
     </section>
   </aside>
+  <aside class="span8">
+    <section>
+      <h1>
+        Courses Enroll 
+      </h1>
+      <% @enrolls.each do |enroll| %>
+        <% course = enroll.course %>
+        <p><%=link_to course.course_name,supervisors_course_path(course.id) %> -- <%=enroll.status%> </p>
+      <% end %>
+    </section>
+  </aside>
+  <%else%>
+     <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @trainee %>
+        <%= @trainee.name %>
+       </h1>
+    </section>
+  </aside>
+  <%end%>
 </div>

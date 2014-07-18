@@ -1,13 +1,16 @@
 <% provide(:title, 'All trainees') %>
 <h1>All trainees</h1>
-
+<%= will_paginate %>
 
 <ul class="trainees">
   <% @trainees.each do |trainee| %>
+  <% if be_trainee? trainee %>
     <li>
       <%= gravatar_for trainee, size: 52 %>
       <%= link_to trainee.name, trainee %>
     </li>
   <% end %>
+  <% end %>
 </ul>
 
+<%= will_paginate %>

@@ -1,0 +1,28 @@
+<h1><span class="name"><%= @course.course_name %></span></h1>
+<p2>Subjects list</p2>
+  <% if signed_in?%>
+    <p>
+    <% @course_subjects.each do |course_subject| %>
+      <% subject = course_subject.subject %>
+      <% trainee_subject = current_trainee.trainee_subjects.find_by_subject_id subject.id %>
+      <p><%=link_to subject.subject_name,subject_path(subject.id) %> <%#=-- <%= trainee_subject.status %></p>
+      <%  
+        assigned_tasks = current_trainee.assigned_tasks
+        assigned_tasks.each do |assigned_task|
+          task = assigned_task.task 
+      %> 
+          <p><% unless  subject.subject_tasks.find_by_task_id(task.id).nil? %>
+          <%= task.task_description %> -- <%= assigned_task.status %> <% else end %> </p>
+        <% end %>
+    <% end %>
+    </p>  
+  <% else %>
+  <p>
+    <% @course_subjects.each do |course_subject| %>
+    <% subject = course_subject.subject %>
+    <p><%= link_to subject.subject_name,supervisors_subject_path(subject.id) %></p>
+    <% end %>  
+  </p>
+  <% end %>
+<p2>Description</p2>
+<p><span class="decription"><%= @course.description %></span></p>

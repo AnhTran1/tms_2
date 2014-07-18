@@ -5,17 +5,19 @@
     <% @course_subjects.each do |course_subject| %>
       <% subject = course_subject.subject %>
       <% trainee_subject = current_trainee.trainee_subjects.find_by_subject_id subject.id %>
-      <p><%=link_to subject.subject_name,subject_path(subject.id) %> -- <%= trainee_subject.status %> </p>
+      <p><%=link_to subject.subject_name,subject_path(subject.id) %> -- 
+      <% if trainee_subject.status == "F" %>
+      Finished <% else %> New <% end %> </p>
       <%  
         assigned_tasks = current_trainee.assigned_tasks
         assigned_tasks.each do |assigned_task|
           task = assigned_task.task 
       %> 
-          <p><% unless  subject.subject_tasks.find_by_task_id(task.id).nil? %>
-          <%= task.task_description %> -- <%= assigned_task.status %> <% else end %> </p>
+          <p><% if task.subject_id == subject.id %>
+          <%= task.task_description %> -- <% if assigned_task.status == "F" %>Finished <% else %> New <% end %> <% else end %> </p>
         <% end %>
     <% end %>
-    </p>  
+    </p>
   <% else %>
   <p>
     <% @course_subjects.each do |course_subject| %>
@@ -26,3 +28,17 @@
   <% end %>
 <p2>Description</p2>
 <p><span class="decription"><%= @course.description %></span></p>
+<p><b> Participants </b></p>
+<p>
+  <% @enrolls.each do |enroll| %>
+    <% if enroll.trainee.supervisor == 0 %>
+      <p><%= link_to enroll.trainee.name,trainee_path(enroll.trainee.id) %>
+    <% else %>
+    <% end %>
+  <% end %> 
+</p>
+<p><b>Activity log</b></p>
+<% @activity_log.each do |activity| %>
+  <p><%= activity["description"] %> --
+  <%= time_ago_in_words(activity["timecomplete"]) %> ago</p>  
+<% end %>   
