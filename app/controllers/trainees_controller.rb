@@ -1,5 +1,7 @@
 class TraineesController < ApplicationController
   before_action :signed_in_trainee, only: [:edit, :update]
+  before_action :be_trainee
+
   def new
   end
 

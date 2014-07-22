@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :courses
   resources :subjects
 
-  namespace :supervisor  do
+  namespace :supervisors  do
     match '/signin', to: 'sessions#new', via: 'get'
     match '/signout', to: 'sessions#destroy', via: 'delete'
     resources :sessions, only: [:new, :create, :destroy]

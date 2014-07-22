@@ -12,8 +12,12 @@ trainee_list = [
 ["Nguyen Van E","nguyenvane@gmail.com","123456","123456"]
 ]
 trainee_list.each do |trainee|
-  Trainee.create( :name=>trainee[0], :email=>trainee[1], :password=>trainee[2], :password_confirmation=>trainee[3])
+  Trainee.create( :name=>trainee[0], :email=>trainee[1], :password=>trainee[2], :password_confirmation=>trainee[3], supervisor: 0)
 end
+supervisor_list = [["Nguyen M","nguyenM@gmail.com","123456","123456"]]
+
+Trainee.create(name: "Nguyen M", email: "nguyenM@gmail.com", password: "123456", password_confirmation: "123456", supervisor: 1)
+
 #Trainee.create(name: 'Germany', email: "Nguyen Van A", password: "123456")
 #Trainee.create(name: 'Germany1', email: "Nguyen Van A1", password: "123456")
 #Trainee.create(name: 'Germany2', email: "Nguyen Van A2", password: "123456")
@@ -28,12 +32,12 @@ course_subject_list.each do |course_id,subject_id|
   CourseSubject.create( course_id: course_id, subject_id: subject_id)
 end
 subject_list=[["Ruby on Rails","The Ruby on Rails Tutorial book and screencast series teach 
-	you how to develop and deploy real, industrial-strength web applications with Ruby on Rails, 
-	the open-source web framework that powers top websites such as Twitter, Hulu, GitHub, and the Yellow Pages. The Ruby on Rails Tutorial book is available for free online and is available for purchase as an ebook (PDF, EPUB, and MOBI formats). The companion screencast series includes 15 individual lessons (including a new Rails 4.0 supplement) totaling more than 15 hours, with one lesson for each chapter of the Ruby on Rails Tutorial book. The best value is the ebook/screencast bundle, which includes the 2nd edition book, the Rails 
-	4.0–compatible version, the 2nd edition screencast series, and the Rails 4.0 supplementary screencasts. "],
+  you how to develop and deploy real, industrial-strength web applications with Ruby on Rails, 
+  the open-source web framework that powers top websites such as Twitter, Hulu, GitHub, and the Yellow Pages. The Ruby on Rails Tutorial book is available for free online and is available for purchase as an ebook (PDF, EPUB, and MOBI formats). The companion screencast series includes 15 individual lessons (including a new Rails 4.0 supplement) totaling more than 15 hours, with one lesson for each chapter of the Ruby on Rails Tutorial book. The best value is the ebook/screencast bundle, which includes the 2nd edition book, the Rails 
+  4.0–compatible version, the 2nd edition screencast series, and the Rails 4.0 supplementary screencasts. "],
 ["GitHub","The entire Pro Git book, written by Scott Chacon and published by Apress, 
-	is available here. All content is licensed under the Creative Commons Attribution Non 
-	ommercial Share Alike 3.0 license. Print versions of the book are available on Amazon.com. "],
+  is available here. All content is licensed under the Creative Commons Attribution Non 
+  ommercial Share Alike 3.0 license. Print versions of the book are available on Amazon.com. "],
 ["YourSQL","MySQL ( MySQL officially, but also called  My Sequel) is (as of March 2014) the worlds second most
  widely used open-source relational database management system (RDBMS)"],["PHP","PHP is a server-side scripting
   language designed for web development but also used as a general-purpose programming language. "]]

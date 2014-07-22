@@ -14,6 +14,9 @@ module SessionsHelper
   def current_trainee=(trainee)
     @current_trainee = trainee
   end
+  def current_trainee?(trainee)
+    trainee == current_trainee
+  end
   
   def current_trainee
     remember_token = Trainee.digest(cookies[:remember_token])
@@ -26,5 +29,29 @@ module SessionsHelper
     cookies.delete(:remember_token)
     self.current_trainee = nil
   end
-  
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    session.delete(:return_to)
+  end
+  def store_location
+    session[:return_to] = request.url
+  end
+  def signed_in_trainee
+    unless signed_in?
+      store_location
+      redirect_to signin_url, notice: "Please sign in."
+    end
+  end
+    def be_trainee? trainee
+    trainee.supervisor == 0
+  end
+  def supervisor_trainee? trainee
+    trainee.supervisor > 0
+  end
+  def supervisor_trainee
+    redirect_to(root_url) unless current_trainee.supervisor == 1
+  end
+  def be_trainee
+    redirect_to(root_url) unless current_trainee.supervisor == 0
+  end
 end
