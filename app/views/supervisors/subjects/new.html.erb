@@ -1,18 +1,18 @@
-<% provide(:title, "Subjects") %>
-<h1><%= @subject.subject_name %></h1>
-
+<% provide(:title, "Create subject") %>
+<h1> Create a new subject </h1>
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for [:supervisors, @subject] do |f| %>
+    <%= form_for @subject, url: supervisors_subjects_path do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <p>
         <%= f.text_field :subject_name, placeholder: "Name" %>
         <%= f.text_area :description, placeholder: "Description" %>
       </p>
-
+      Tasks:
       <%= f.fields_for :tasks do |builder| %>
         <%= render 'task', f: builder %>
       <% end %>
+
 
       <p><%= f.submit "Save", class: "btn btn-large btn-primary" %></p>
     <% end %>

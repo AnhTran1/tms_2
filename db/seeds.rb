@@ -68,3 +68,8 @@ trainee_task_list = [[1,1,"F",3],[1,2,"N",3],[1,3,"N",3],[1,4,"N",3],[1,5,"N",3]
 trainee_task_list.each do |trainee_id,task_id,status,trainee_subject_id|
   AssignedTask.create(trainee_id:trainee_id,task_id:task_id,status:status,trainee_subject_id: trainee_subject_id)
 end
+
+manage_course_list=[[1,1],[1,2],[1,3],[1,4],[1,5]]
+manage_course_list.each do |course_id, trainee_id|
+  ManagingCourse.create( trainee_id: trainee_id, course_id: course_id )
+end

@@ -11,3 +11,24 @@
   <% end %>
 <p2>Description</p2>
 <p><span class="decription"><%= @course.description %></span></p>
+<p2>Supervisors enroll</p2>
+<p>
+  <% @managing_courses.each do |managing_course| %>
+    <% trainee = managing_course.trainee %>
+      <% if trainee.supervisor == 1 %> 
+        <p><%=link_to trainee.name,supervisors_trainee_path(trainee.id) %> </p>
+      <% end %>
+    <% end %>
+</p>  
+<p2>Trainees enroll</p2>
+<p>
+  <% @managing_courses.each do |managing_course| %>
+    <% trainee = managing_course.trainee %>
+      <% if trainee.supervisor == 0 %> 
+        <p><%=link_to trainee.name,supervisors_trainee_path(trainee.id) %> </p>
+      <% end %>
+    <% end %>
+</p> 
+<p2>Action</p2>
+<p><%=link_to "Add supervisor",'#' %> </p>
+<p><%=link_to "Add trainee",'#' %> </p>

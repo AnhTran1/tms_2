@@ -9,6 +9,7 @@ class Supervisors::CoursesController < ApplicationController
   def show
     @course = Course.find params[:id]
     @course_subjects = @course.course_subjects
+    @managing_courses = @course.managing_courses
   end
 
   def new
@@ -26,10 +27,8 @@ class Supervisors::CoursesController < ApplicationController
         course_subject.destroy
       end
     end
-    ActiveRecord::Base.transaction do
-      @course.save!
-      flash[:success] = "Course created!"
-    end
+    @course.save!
+    flash[:success] = "Course created!"
     redirect_to supervisors_courses_path(@course)
   end
 
