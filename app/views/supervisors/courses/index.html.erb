@@ -1,8 +1,5 @@
 <% provide(:title, "All Courses") %>
 <h1>Courses</h1>
-
-<h2><%= link_to "Create new course", new_supervisors_course_path %></h2>
-
 <ul class="courses">
   <% @courses.each do |course| %>
     <li>
