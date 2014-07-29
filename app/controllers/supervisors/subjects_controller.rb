@@ -1,6 +1,6 @@
 class Supervisors::SubjectsController < ApplicationController
-  before_filter :signed_in_trainee
-  before_filter :supervisor_trainee
+  before_action :signed_in_trainee
+  before_action :supervisor_trainee
 
   def index
     @subjects = Subject.order(:name)
