@@ -1,9 +1,0 @@
-<% provide(:title, @course.name) %>
-<h1><%= @course.course_name %></h1>
-<h2><%= @course.description %></h2>
-<p>
-    <% @course_subjects.each do |course_subject| %>
-    <% subject = course_subject.subject %>
-    <p><%= link_to subject.subject_name,supervisors_course_subject_path(subject.id) %></p>
-    <% end %>  
-  </p>

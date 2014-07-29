@@ -1,6 +1,6 @@
 class Supervisors::SubjectsController < ApplicationController
-  before_filter :signed_in_trainee
-  before_filter :supervisor_trainee
+  before_action :signed_in_trainee
+  before_action :supervisor_trainee
 
   def index
     @subjects = Subject.order(:name)
@@ -8,8 +8,7 @@ class Supervisors::SubjectsController < ApplicationController
 
   def show
     @subject = Subject.find params[:id]
-    @subject_tasks = @subject.subject_tasks
-    @task = Task.new
+    @task = @subject.tasks
   end
 
   def new

@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20140725043622) do
-
 
   create_table "assigned_tasks", force: true do |t|
     t.integer  "trainee_subject_id"

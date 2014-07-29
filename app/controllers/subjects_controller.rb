@@ -1,6 +1,6 @@
 class SubjectsController < ApplicationController
   before_action :signed_in_trainee
-  before_action :supervisor_trainee
+
   def show
     @subject = Subject.find params[:id]
     @assigned_task_list = current_trainee.assigned_tasks

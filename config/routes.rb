@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :sessions, only: [:new, :create, :destroy]
     resources :trainees
     resources :courses
-    resources :subjects 
+    resources :subjects
     resources :courses do 
       resources :course_subjetcs, only: [:show , :edit ,:update]     
     end
